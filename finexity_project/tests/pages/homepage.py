@@ -1,3 +1,4 @@
+import time
 from pages.basepage import BasePage
 from selenium.webdriver.common.by import By
 
@@ -6,7 +7,7 @@ class HomePage(BasePage):
        self.context=context
     
     # home page header text 
-    HEADER_TEXT=(By.XPATH,"//h1[contains(text(),'Invest in alternative assets. Fully digital and fl')]")
+    HEADER_TEXT=(By.XPATH,"//div[@class='desktop-display']//div[contains(@class,'top-part bg-dark d-flex justify-between align-center')]")
     
     #top manu
     TOP_MANU=(By.XPATH,"//ul[@class='top-menu d-flex align-center']/li/a")
@@ -21,14 +22,18 @@ class HomePage(BasePage):
     JOIN_NOW=(By.XPATH,"//div[@class='left-side']//button[1]")
     
     
-    CLICK_ON_LOGO=(By.XPATH,"//body/div[@id='__next']/div[@class='theme-wrapper light-theme']/header[@class='broad-container multi-asset-header false false ']/div[@id='mainNavigation']/a[1]")
-    
+    MARKETPLACE=(By.XPATH,"//li[@class='li-menu-item ']")
+    LOGO=(By.XPATH,"//a[contains(@class,'logo')]")
     #dashboard button 
     DASHBOARD_BUTTON=(By.XPATH,"//button[normalize-space()='Dashboard']")
     
     
     def click_on_logo(self):
-        self.context.browser.find_element(*self.CLICK_ON_LOGO).click()
+        # print("HElo1")
+        # self.context.browser.find_element(self.MARKETPLACE).click()
+        # time.sleep(5)
+        self.context.browser.find_element(self.LOGO).click()
+        time.sleep(5)
        
     def check_header_text_on_home_page(self):
         self.context.browser.find_element(*self.HEADER_TEXT).is_displayed() 
@@ -39,7 +44,7 @@ class HomePage(BasePage):
         assert True
 
     def check_EN(self):
-        self.context.browser.find_element(*self.ENGLISH)
+        self.context.browser.find_element(*self.ENGLISH).click()
         assert True
 
     # def footer(self):
@@ -47,7 +52,9 @@ class HomePage(BasePage):
     #     assert True 
           
     def join_now(self):
+        
         self.context.browser.find_element(*self.JOIN_NOW).click()
+        time.sleep(5)
         
     def click_on_dashbord_botton(self):
        self.context.browser.find_element(*self.DASHBOARD_BUTTON).click()
