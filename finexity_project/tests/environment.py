@@ -21,12 +21,12 @@ def before_feature(context,feature):
                                 '//*[@id="cookiefirst-root"]/div[2]/div/div[2]/div[2]/div[2]/div[1]/button').click()  
     time.sleep(5)
 def before_scenario(context,scenario):
-    # context.browser = webdriver.Chrome(r"C:\Users\deept\OneDrive\Desktop\New folder\driver\chromedriver.exe")
-    # context.browser.get("https://test.finexity.com/")
-    # time.sleep(5)
-    # context.browser.maximize_window()
-    # context.browser.find_element(By.XPATH,
-    #                             '//*[@id="cookiefirst-root"]/div[2]/div/div[2]/div[2]/div[2]/div[1]/button').click()  
+    context.browser = webdriver.Chrome(r"C:\Users\deept\OneDrive\Desktop\New folder\driver\chromedriver.exe")
+    context.browser.get("https://test.finexity.com/")
+    time.sleep(5)
+    context.browser.maximize_window()
+    context.browser.find_element(By.XPATH,
+                                '//*[@id="cookiefirst-root"]/div[2]/div/div[2]/div[2]/div[2]/div[1]/button').click()  
     
     context.basepage=BasePage(context)
     context.publicpage=(context)
