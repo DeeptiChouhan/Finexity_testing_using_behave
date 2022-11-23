@@ -1,24 +1,36 @@
-from behave import then, given
 
-@given(u'User on Finexity')
+from behave import *
+@given(u'User is on Finexity website')
 def step_impl(context):
-    print("HElo")
+    pass
+@when(u'user clicks on logo')
+def step_impl(context):
     context.homepage.click_on_logo()
-    print("HElo")
+
+@then(u'Verify top menu content')
+def step_impl(context):
+    context.homepage.top_menu()
+
+@then(u'Verify that header is displayed')
+def step_impl(context):
+    context.basepage.header()
+
+@when(u'Verify that footer is displayed')
+def step_impl(context):
+    context.basepage.footer()
     
-@then(u'Then Header text as Invest in alternative assets. Fully digital and flexible. is displayed on home page')
+@when(u'user click on personal tab')
 def step_impl(context):
-    context.homepage.check_header_text_on_home_page()
+    context.homepage.click_on_personal()
 
-@then(u'Verify top manu content')
+@when(u'user click on join now botton on personal tab')
 def step_impl(context):
-    context.homepage.top_manu()
-
-@then(u'Verify menu bar content under Personal in English')
+    context.homepage.click_on_join_now_tab()
+    
+@when(u'user clicks on register now botton on personal tab')
 def step_impl(context):
-    context.homepage.check_EN()
-   
-@then(u'Join now botton available in home page')
+    context.homepage.click_on_register_now()
+    
+@when(u'user check that footer links')
 def step_impl(context):
-    context.homepage.join_now()
-   
+    context.homepage.ckeck_footer_links()

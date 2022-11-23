@@ -1,8 +1,32 @@
 Feature: Finexity Homepage
-    Scenario: Check full home page 
-        Given When User visit on finexity website
-        Then Then Header text as Invest in alternative assets. Fully digital and flexible. is displayed on home page
-        And Verify top manu content 
-        And Verify menu bar content under Personal in English
-        And Verify that footer is displayed
-        And Join now botton available in home page
+    Background:check personal tab
+        Given User is on Finexity website
+        When user clicks on logo
+        And Verify top menu content
+        And Verify that header is displayed
+        And Verify that footer is displayed 
+        When user click on personal tab
+
+    Scenario:check personal tab
+        When user click on personal tab
+        when user click on join now botton on personal tab
+        when user clicks on register now botton on personal tab
+        And user check that footer links 
+   
+    
+
+
+
+
+
+
+
+
+    
+
+    
+
+
+
+
+        
