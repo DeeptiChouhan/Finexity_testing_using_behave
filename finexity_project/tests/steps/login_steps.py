@@ -53,7 +53,6 @@ def step_impl(context):
 def step_impl(context):
     pass
 
-
 @when(u'user enters "testuser01@finexity.com" and ""')
 def step_impl(context):
     pass

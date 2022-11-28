@@ -1,4 +1,5 @@
 
+import time
 from behave import *
 @given(u'User is on Finexity website')
 def step_impl(context):
@@ -33,4 +34,40 @@ def step_impl(context):
     
 @when(u'user check that footer links')
 def step_impl(context):
-    context.homepage.ckeck_footer_links()
+    context.basepage.ckeck_footer_links()
+    
+@when(u'user click on marketplace tab')
+def step_impl(context):
+    context.homepage.click_on_marketplace()
+
+@when(u'user check marketplace cetagory tab')
+def step_impl(context):
+    context.homepage.marketpalce_tabs()
+
+@when(u'user clicks on marketplace cetagory tab')
+def step_impl(context):
+    context.homepage.click_on_marketpalce_tabs()
+    
+@when(u'user check marketplace product')
+def step_impl(context):
+    context.homepage.product_availibility_on_marketpalce()
+    
+@when(u'user clicks on marketplace product details')
+def step_impl(context):
+    context.homepage.check_marketpalce_product_details()
+    
+@when(u'hoverover on digital wealth tab')
+def step_impl(context):
+    context.homepage.hoverover_on_digital_wealth()
+
+@when(u'user click on digital wealth items')
+def step_impl(context):
+    context.homepage.check_digital_wealth_options()
+    
+@when(u'hoverover on company tab')
+def step_impl(context):
+    context.homepage.hoverover_on_company()
+
+@when(u'user click on company items')
+def step_impl(context):
+    context.homepage.check_company_option()

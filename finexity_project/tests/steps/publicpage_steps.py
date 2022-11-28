@@ -8,7 +8,7 @@ def step_impl(context):
 
 @when(u'user clicks on personal tab')
 def step_impl(context):
-    context.publicpage.click_on_personal_tab()
+    context.homepage.click_on_logo()
     
 
 @when(u'clicks on register now')
