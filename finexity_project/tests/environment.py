@@ -9,6 +9,8 @@ from selenium.webdriver.common.by import By
 from pages.business_page import Business
 from pages.login_page import Login
 from pages.exclusive_page import ExclusivePage
+from pages.marrketplace import Marketplace
+from pages.registartion import Registration
 
 
 
@@ -30,6 +32,7 @@ def before_scenario(context,scenario):
     context.login=Login(context)
     context.exclusive=ExclusivePage(context)
     context.business=Business(context)
-    
+    context.marketplace=Marketplace(context)
+    context.registration=Registration(context)
 def after_feature(context,feature):
 	context.browser.quit() 
