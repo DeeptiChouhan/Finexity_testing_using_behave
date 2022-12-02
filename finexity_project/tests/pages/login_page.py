@@ -21,6 +21,8 @@ class Login(BasePage, unittest.TestCase):
     LOGOUT=(By.XPATH, "//span[normalize-space()='Logout']")
     INVAILID_PASS=(By.XPATH, "//label[normalize-space()='Wrong email or password.']")
     INVAILID_EMAIL=(By.XPATH,"//label[normalize-space()='E-Mail address invalid']")
+    INVALID_MOBILE=(By.XPATH,"//label[normalize-space()='Invalid mobile number']")
+    PHONE_NO_INPUT=(By.XPATH,"//input[@id='r-phone']")
     BLANK_EMAIL=(By.XPATH,"//label[normalize-space()='E-Mail address is required']")
     BLANK_PASS=(By.XPATH,"//label[normalize-space()='Password is required']")
     LOGIN_LINK=(By.XPATH,"//a[contains(text(),'Login')]")
@@ -50,17 +52,18 @@ class Login(BasePage, unittest.TestCase):
         actual_msg="Wrong email or password."
         test.assertEqual(excpected_msg,actual_msg)
         
+    def invalid_msg_for_mobile(self):   
+        excpected_msg=self.context.browser.find_element(*self.INVALID_MOBILE).text
+        actual_msg="Invalid mobile number"
+        test.assertEqual(excpected_msg,actual_msg)
+        
     def blank_email(self):
         excpected_msg=self.context.browser.find_element(*self.BLANK_EMAIL).text
         actual_msg="E-Mail address is required"
         test.assertEqual(excpected_msg,actual_msg)
     
     def blank_pass(self):
-        excpected_msg=self.context.browser.find_element(*self.BLANK_PASS).text
-        actual_msg="Password is required"
-        test.assertEqual(excpected_msg,actual_msg)
-
-    def blank_pass(self):
+        self.context.browser.find_element(*self.BLANK_PASS).click()
         excpected_msg=self.context.browser.find_element(*self.BLANK_PASS).text
         actual_msg="Password is required"
         test.assertEqual(excpected_msg,actual_msg)
@@ -69,3 +72,8 @@ class Login(BasePage, unittest.TestCase):
         excpected_msg=self.helper.explicit_wait(self.WRONG_PASSWORD_MESSAGE).text
         actual_msg="Minimum password length should be 6 symbols"
         test.assertEqual(excpected_msg,actual_msg)
+        
+    def phone(self,phone_number):
+        self.context.browser.find_element(*self.PHONE_NO_INPUT).send_keys(phone_number)
+        
+    

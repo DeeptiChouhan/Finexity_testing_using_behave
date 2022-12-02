@@ -15,7 +15,8 @@ class HomePage(BasePage):
     PERSONAL=(By.XPATH,"//a[text()='Personal']")
     JOIN_NOW=(By.XPATH,"//div[@class='left-side']//button[1]")
     MARKETPLACE=(By.XPATH,"//li[@class='li-menu-item ']")
-    DASHBOARD_BUTTON=(By.XPATH,"//button[text()='Dashboard']") 
+    DASHBOARD_BUTTON=(By.XPATH,"//button[text()='Dashboard']")
+    DASHBOARD_TEXT=(By.XPATH,"//h2[normalize-space()='Dashboard']") 
     EXIT=(By.XPATH,"//a[contains(@class,'new-link medium flex align-center')]")
     REGISTER_NOW=(By.XPATH,"//button[normalize-space()='Register now']")
     MARKETPLACE=(By.XPATH,"//a[@href='/personal/marketplace']")
@@ -40,20 +41,27 @@ class HomePage(BasePage):
     def join_now(self):    
         self.context.browser.find_element(*self.JOIN_NOW).is_displayed()
         
+    def exitButton(self):
+        self.helper.explicit_wait(self.EXIT).click()
+        time.sleep(5)
+            
     def click_on_join_now_tab(self):  
         self.helper.explicit_wait(self.JOIN_NOW).click()
-        self.helper.explicit_wait(self.EXIT).click()
+        self.exitButton()
         
     def click_on_register_now(self):
         self.helper.explicit_wait(self.REGISTER_NOW).click()
-        self.helper.explicit_wait(self.EXIT).click()
-        time.sleep(5)
+        self.exitButton()
+        
         self.helper.explicit_wait(self.MARKETPLACE).click()
         
     def click_on_marketplace(self):
         self.context.browser.find_element(*self.MARKETPLACE).click()
         time.sleep(2)
         
+    def dashboard_text(self):
+        self.context.browser.find_element(*self.DASHBOARD_TEXT).is_displayed()
+           
     def click_on_dashbord_botton(self):
        self.helper.explicit_wait(self.DASHBOARD_BUTTON).click()
 
