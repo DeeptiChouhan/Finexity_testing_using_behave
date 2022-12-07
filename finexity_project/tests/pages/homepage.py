@@ -14,8 +14,6 @@ class HomePage(BasePage):
     LOGO=(By.XPATH,'//*[@id="mainNavigation"]/a')
     PERSONAL=(By.XPATH,"//a[text()='Personal']")
     JOIN_NOW=(By.XPATH,"//div[@class='left-side']//button[1]")
-    MARKETPLACE=(By.XPATH,"//li[@class='li-menu-item ']")
-    DASHBOARD_BUTTON=(By.XPATH,"//button[text()='Dashboard']")
     DASHBOARD_TEXT=(By.XPATH,"//h2[normalize-space()='Dashboard']") 
     EXIT=(By.XPATH,"//a[contains(@class,'new-link medium flex align-center')]")
     REGISTER_NOW=(By.XPATH,"//button[normalize-space()='Register now']")
@@ -56,15 +54,11 @@ class HomePage(BasePage):
         self.helper.explicit_wait(self.MARKETPLACE).click()
         
     def click_on_marketplace(self):
-        self.context.browser.find_element(*self.MARKETPLACE).click()
-        time.sleep(2)
+        self.helper.explicit_wait(self.MARKETPLACE).click()
         
     def dashboard_text(self):
         self.context.browser.find_element(*self.DASHBOARD_TEXT).is_displayed()
-           
-    def click_on_dashbord_botton(self):
-       self.helper.explicit_wait(self.DASHBOARD_BUTTON).click()
-
+        
     def marketpalce_tabs(self):     
         self.context.browser.find_element(*self.MARKETPLACE_TABS).is_displayed()
         

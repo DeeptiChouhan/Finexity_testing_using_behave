@@ -1,6 +1,4 @@
-
 import time
-
 from pages.basepage import BasePage
 from pages.homepage import HomePage
 from pages.login_page import Login
@@ -9,21 +7,17 @@ from selenium.webdriver.common.by import By
 from pages.business_page import Business
 from pages.login_page import Login
 from pages.exclusive_page import ExclusivePage
-from pages.marrketplace import Marketplace
-from pages.registartion import Registration
-
-
-
-def before_all(context):
+from pages.marketplace import Marketplace
+from pages.registration import Registration
+from selenium.webdriver.support.ui import WebDriverWait 
+from selenium.webdriver.support import expected_conditions as EC
+        
+def before_feature(context,feature):  
+    login=Login(context) 
     context.browser = webdriver.Chrome(r"driver\chromedriver.exe")
-
-def before_feature(context,feature):
     context.browser.get("https://test.finexity.com/")
-    time.sleep(5)
-    context.browser.maximize_window()
-    context.browser.find_element(By.XPATH,
-                                '//*[@id="cookiefirst-root"]/div[2]/div/div[2]/div[2]/div[2]/div[1]/button').click()  
-    time.sleep(7)
+    login.accept_cookies()
+    login.user_login()
     
 def before_scenario(context,scenario):
     context.basepage=BasePage(context)
@@ -34,5 +28,6 @@ def before_scenario(context,scenario):
     context.business=Business(context)
     context.marketplace=Marketplace(context)
     context.registration=Registration(context)
+    
 def after_feature(context,feature):
-	context.browser.quit() 
+    context.browser.quit() 

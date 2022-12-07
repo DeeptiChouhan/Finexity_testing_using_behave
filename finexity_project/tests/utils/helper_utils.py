@@ -27,6 +27,12 @@ class Helper():
         actionchains=ActionChains(self.context.browser)
         actionchains.move_to_element(hover_bttn).perform()
         time.sleep(1)    
-                   
-                   
+    
+    def get_pop_value(self,value):
+        Dropdown_Element = WebDriverWait(self.context.browser, 25).until(EC.visibility_of_all_elements_located(value))
+        for checkbox in Dropdown_Element:    
+            actions = ActionChains(self.context.browser)
+            actions.click(on_element=checkbox)
+            actions.perform()              
+            time.sleep(2)     
     

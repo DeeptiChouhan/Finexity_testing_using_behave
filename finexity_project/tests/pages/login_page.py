@@ -6,7 +6,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from pages.basepage import BasePage
-from pages.registartion import Registration
+from pages.registration import Registration
 from utils.helper_utils import Helper
 
 test = unittest.TestCase()
@@ -27,20 +27,35 @@ class Login(BasePage, unittest.TestCase):
     BLANK_PASS=(By.XPATH,"//label[normalize-space()='Password is required']")
     LOGIN_LINK=(By.XPATH,"//a[contains(text(),'Login')]")
     WRONG_PASSWORD_MESSAGE=(By.XPATH,"//label[@class='error-label text-left']")
+    COOKIES=(By.XPATH,'//*[@id="cookiefirst-root"]/div[2]/div/div[2]/div[2]/div[2]/div[1]/button')
     
+    def accept_cookies(self):
+        self.context.browser.maximize_window()
+        self.helper.explicit_wait(self.COOKIES).click()   
+        time.sleep(2)
+        
     def click_on_login_link(self):
         self.context.browser.find_element(*self.LOGIN_LINK).click()
         time.sleep(5)
-        
+      
     def click_on_login(self):
         self.context.browser.find_element(*self.LOGIN_BUTTON).click()
         time.sleep(15)
         
     def click_on_user_icon(self):
         self.helper.explicit_wait(self.USER_ICON).click()
-        time.sleep(5)
+           
     def logout(self):
         self.helper.explicit_wait(self.LOGOUT).click()
+        time.sleep(2)
+        
+    def user_login(self):
+        self.enter_name() 
+        self.enter_pass()
+        self.click_on_login()
+        self.click_on_dashbord_botton()
+        self.click_on_user_icon()
+        self.logout()
         
     def invalid_msg_for_mail(self):    
         excpected_msg=self.context.browser.find_element(*self.INVAILID_EMAIL).text
@@ -63,8 +78,7 @@ class Login(BasePage, unittest.TestCase):
         test.assertEqual(excpected_msg,actual_msg)
     
     def blank_pass(self):
-        self.context.browser.find_element(*self.BLANK_PASS).click()
-        excpected_msg=self.context.browser.find_element(*self.BLANK_PASS).text
+        excpected_msg=self.helper.explicit_wait(self.BLANK_PASS).text()
         actual_msg="Password is required"
         test.assertEqual(excpected_msg,actual_msg)
         
