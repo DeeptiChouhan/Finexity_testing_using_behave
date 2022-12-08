@@ -14,23 +14,13 @@ class Marketplace(BasePage):
             self.context=context
             self.helper=Helper(self.context) 
                 
-      SELECT_PRODUCT=(By.XPATH,"//h6[normalize-space()='Green Tiny House Jan']")
+      SELECT_PRODUCT=(By.XPATH,"//h6[normalize-space()='Green Tiny House Tim']")
       INVESTMENT_NOW=(By.XPATH,"//div[@class='desktop-display']//button[contains(@class,'action-btn mb-0 target-button')][normalize-space()='Invest now']")
       CONTINUE_INVESTMENT=(By.XPATH,"//button[normalize-space()='Continue this investment']")
       YOUR_INVESTMENT=(By.XPATH,"//input[@class='form-input text-input form-item investment-share-input']")
-      RISK_BOX=(By.XPATH,"//label[@for='IsRisksConfirmed']")
-      COSTS_AND_GRANTS=(By.XPATH,"//label[@for='IsCostConfirmed']")
-      BASIC_INFORMATION_SHEET=(By.XPATH,"//label[@for='IsBIBConfirmed']")
-      TERMS_OF_THE_BOND=(By.XPATH,"//label[@for='IsBondTermsConfirmed']")
-      TERMS_AND_CONDITIONS=(By.XPATH,"//label[@for='IsBrokerageTermsConfirmed']")
-      CONSUMER_INFORMATION=(By.XPATH,"//label[@for='IsConsumerInformationConfirmed']")
-      FORWARDING_CONFORMATION=(By.XPATH,"//label[@for='IsCustodyDataForwardingConfirmed']")
-      CONFORMATTION=(By.XPATH,"//label[@for='IsPersonalInformationConfirmed']")
-      BACK_TO_PRODUCT_PAGE=(By.XPATH,"//button[normalize-space()='Back to product page']")
-      START_BUTTON=(By.XPATH,"//button[@id='nextButton']")
-      CHECK_BOX=(By.XPATH,"//label[@class='checkbox    ']")
+      CHECKBOXES = (By.XPATH,"//input[@type='checkbox'][@value='false']/following-sibling::div//div")
       BUY_NOW=(By.XPATH,"//button[@id='nextButton']")
-      
+      BACK_TO_PRODUCT=(By.XPATH,"//button[normalize-space()='Back to product page']")
       def select_product_for_invesment(self):      
             self.helper.explicit_wait(self.SELECT_PRODUCT).click()
        
@@ -38,23 +28,35 @@ class Marketplace(BasePage):
             self.helper.explicit_wait(self.INVESTMENT_NOW).click()
         
       def enterYourInvestment(self):           
-            self.helper.explicit_wait(self.YOUR_INVESTMENT).send_keys("500")
+            self.helper.explicit_wait(self.YOUR_INVESTMENT).send_keys("800")
   
       def acceptAlltermsAndCondition(self):
-            self.helper.get_pop_value(self.RISK_BOX) 
-            self.helper.get_pop_value(self.COSTS_AND_GRANTS) 
-            self.helper.get_pop_value(self.BASIC_INFORMATION_SHEET) 
-            self.helper.get_pop_value(self.TERMS_OF_THE_BOND) 
-            self.helper.get_pop_value(self.TERMS_AND_CONDITIONS) 
-            self.helper.get_pop_value(self.CONSUMER_INFORMATION) 
-            self.helper.get_pop_value(self.FORWARDING_CONFORMATION) 
-            self.helper.get_pop_value(self.CONFORMATTION) 
-            time.sleep(5)
+            for i in range(20):
+                  check_boxes = self.context.browser.find_elements(*self.CHECKBOXES)
+                  if len(check_boxes) == 0:           
+                        break
+                  try:
+                        for el in check_boxes:
+                              self.context.browser.execute_script("arguments[0].scrollIntoView();", el)
+                              self.context.browser.execute_script("arguments[0].click();", el)
+                              self.context.browser.implicitly_wait(1)
+                  except BaseException as ex:
+                        pass      
+            self.context.browser.implicitly_wait(20)
+      
       def back_to_product_page(self):
-            self.helper.explicit_wait(self.BACK_TO_PRODUCT_PAGE).click()     
+            WebDriverWait(self.context.browser, 20).until(EC.element_to_be_clickable(self.BACK_TO_PRODUCT)).click()     
             
       def clickOnStart(self):
-            WebDriverWait(self.context.browser, 20).until(EC.element_to_be_clickable(self.START_BUTTON)).click()
+            WebDriverWait(self.context.browser, 20).until(EC.element_to_be_clickable(BasePage.CONTINUE)).click()
       
       def clickOnBuyNow(self):
-            self.helper.explicit_wait(self.BUY_NOW).click()
+            Dropdown_Element = self.context.browser.find_elements(*self.BUY_NOW)
+            print(len(Dropdown_Element))
+            print(Dropdown_Element)
+            for checkbox in Dropdown_Element:    
+                  actions = ActionChains(self.context.browser)
+                  actions.click(on_element=checkbox)
+                  time.sleep(2)
+                  actions.perform()
+            

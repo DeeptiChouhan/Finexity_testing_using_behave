@@ -55,6 +55,7 @@ class HomePage(BasePage):
         
     def click_on_marketplace(self):
         self.helper.explicit_wait(self.MARKETPLACE).click()
+        time.sleep(5)
         
     def dashboard_text(self):
         self.context.browser.find_element(*self.DASHBOARD_TEXT).is_displayed()

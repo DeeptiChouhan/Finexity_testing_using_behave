@@ -14,10 +14,14 @@ from selenium.webdriver.support import expected_conditions as EC
         
 def before_feature(context,feature):  
     login=Login(context) 
-    context.browser = webdriver.Chrome(r"driver\chromedriver.exe")
-    context.browser.get("https://test.finexity.com/")
-    login.accept_cookies()
-    login.user_login()
+    context.browser = webdriver.Chrome(executable_path=r"driver\chromedriver.exe")
+    TOKEN = open("./tests/configs/token.txt", "r")
+    TOKEN_ACCESS = TOKEN.read()
+    context.browser.get("https://test.finexity.com/"+TOKEN_ACCESS)
+    context.browser.maximize_window()
+    time.sleep(5)
+    login.click_on_login_link()
+   
     
 def before_scenario(context,scenario):
     context.basepage=BasePage(context)
