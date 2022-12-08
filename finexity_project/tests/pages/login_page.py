@@ -23,8 +23,8 @@ class Login(BasePage, unittest.TestCase):
     INVAILID_EMAIL=(By.XPATH,"//label[normalize-space()='E-Mail address invalid']")
     INVALID_MOBILE=(By.XPATH,"//label[normalize-space()='Invalid mobile number']")
     PHONE_NO_INPUT=(By.XPATH,"//input[@id='r-phone']")
-    BLANK_EMAIL=(By.XPATH,"//label[normalize-space()='E-Mail address is required']")
-    BLANK_PASS=(By.XPATH,"//label[normalize-space()='Password is required']")
+    BLANK_EMAIL_INPUT=(By.XPATH,"//label[normalize-space()='E-Mail address is required']")
+    BLANK_PASS_INPUT=(By.XPATH,"//label[normalize-space()='Password is required']")
     LOGIN_LINK=(By.XPATH,"//a[contains(text(),'Login')]")
     WRONG_PASSWORD_MESSAGE=(By.XPATH,"//label[@class='error-label text-left']")
     COOKIES=(By.XPATH,'//*[@id="cookiefirst-root"]/div[2]/div/div[2]/div[2]/div[2]/div[1]/button')
@@ -73,12 +73,12 @@ class Login(BasePage, unittest.TestCase):
         test.assertEqual(excpected_msg,actual_msg)
         
     def blank_email(self):
-        excpected_msg=self.context.browser.find_element(*self.BLANK_EMAIL).text
+        excpected_msg=self.context.browser.find_element(*self.BLANK_EMAIL_INPUT).text
         actual_msg="E-Mail address is required"
         test.assertEqual(excpected_msg,actual_msg)
     
     def blank_pass(self):
-        excpected_msg=self.helper.explicit_wait(self.BLANK_PASS).text()
+        excpected_msg=self.context.browser.find_element(*self.BLANK_PASS_INPUT).text
         actual_msg="Password is required"
         test.assertEqual(excpected_msg,actual_msg)
         
@@ -87,7 +87,7 @@ class Login(BasePage, unittest.TestCase):
         actual_msg="Minimum password length should be 6 symbols"
         test.assertEqual(excpected_msg,actual_msg)
         
-    def phone(self,phone_number):
-        self.context.browser.find_element(*self.PHONE_NO_INPUT).send_keys(phone_number)
+    def enter_phone(self,phone_number):
+        self.helper.explicit_wait(self.PHONE_NO_INPUT).send_keys(phone_number)
         
     

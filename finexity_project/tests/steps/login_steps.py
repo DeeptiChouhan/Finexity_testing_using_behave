@@ -2,11 +2,21 @@ import time
 from pages.basepage import BasePage
 from behave import given,when,then,step
 
+from tests.configs.constants import USER_MAP
+
 @when(u'user enters "{username}" and "{password}"')
 def step_impl(context,username,password):
    context.browser.find_element(*BasePage.USERNAME_INPUT).send_keys(username)
    context.browser.find_element(*BasePage.USERPASS_INPUT).send_keys(password)
-        
+   
+@step('User provides registration password as "{password}" on login page')
+def step_impl(context,password):
+    context.browser.find_element(*BasePage.USERPASS_INPUT).send_keys(password)
+       
+@step(u'User provides registration email as "{username}" on login page')
+def step_impl(context,username):
+    context.browser.find_element(*BasePage.USERNAME_INPUT).send_keys(username)
+            
 @when(u'User clicks on Login button')
 def step_impl(context):
       context.login.click_on_login()
@@ -24,7 +34,8 @@ def step_impl(context):
 def step_impl(context):
       context.login.logout()
       time.sleep(5)
-      
+
+         
 @given(u'refresh browser')
 def step_impl(context):
     context.browser.refresh()
@@ -45,4 +56,3 @@ def step_impl(context):
 @then(u'Password is required should be show')
 def step_impl(context):
     context.login.blank_pass()
-
